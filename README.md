@@ -12,5 +12,10 @@ RealmRover is a PowerShell script designed for Active Directory enumeration and 
 ## Usage
 ```bash
 .\RealmRover.ps1 -Option <1, 2, 3, 4>
-
+```
+## Options:
+1: Enumerate all users in the domain and save to domain-users.txt.
+2: Enumerate all groups in the domain and save them to domain-groups.txt.
+3: Enumerate computers in the domain and save to domain-computers.txt.
+4: Enumerate users with SPNs and save to user-spn-list.txt.
    
