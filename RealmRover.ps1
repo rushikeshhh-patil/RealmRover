@@ -1,3 +1,7 @@
+# Name         -     RealmRover.ps1
+# Description  -     A PowerShell script for streamlined Active Directory enumeration.
+# Author       -     rushikeshhh-patil            
+
 param (
     [string]$Option
 )
