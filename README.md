@@ -1,6 +1,6 @@
 # RealmRover
 
-RealRover is a PowerShell script designed for Active Directory enumeration and information gathering. It provides a set of options to retrieve details about users, groups, computers, and users with Service Principal Names (SPNs) within the domain.
+RealmRover is a PowerShell script designed for Active Directory enumeration and information gathering. It provides a set of options to retrieve details about users, groups, computers, and users with Service Principal Names (SPNs) within the domain.
 
 ## Features
 
@@ -10,6 +10,7 @@ RealRover is a PowerShell script designed for Active Directory enumeration and i
 - **SPN User Enumeration**: Enumerate users with SPNs and save the list to `user-spn-list.txt`.
 
 ## Usage
-
+```bash
+.\RealmRover.ps1 -Option <1, 2, 3, 4>
 
    
