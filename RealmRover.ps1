@@ -9,12 +9,14 @@ param (
 function ShowMenu {
     Write-Host "==================== Menu ====================="
     Write-Host
-    Write-Host "Usage: ./RealmRover.ps1 -Option <1, 2, 3, 4>"
+    Write-Host "Usage: ./RealmRover.ps1 -Option <1, 2, 3, 4, 5, 6>"
     Write-Host "Options:"
     Write-Host "  1. Enumerate all users in domain"
-    Write-Host "  2. Enumerate all groups in domain"
-    Write-Host "  3. Enumerate computers in domain"
-    Write-Host "  4. Enumerate users with SPNs"
+    Write-Host "  2. Enumerate information about a specific user"
+    Write-Host "  3. Enumerate all groups in domain"
+    Write-Host "  4. Enumerate information about a specific group"
+    Write-Host "  5. Enumerate computers in domain"
+    Write-Host "  6. Enumerate users with SPNs"
     Write-Host
     Write-Host "==============================================="
 }
@@ -62,6 +64,28 @@ function EnumerateComputers {
     $computerList | Out-File -FilePath "domain-computers.txt" -Append
 }
 
+function EnumerateSpecificUser {
+    param (
+        [string]$username
+    )
+
+    $user = ([ADSISearcher]"(&(ObjectClass=user)(sAMAccountName=$username))").FindOne()
+    $userInfo = $user.Properties
+
+    $userInfo | Out-File -FilePath "$username-info.txt" -Append
+}
+
+function EnumerateSpecificGroup {
+    param (
+        [string]$groupname
+    )
+
+    $group = ([ADSISearcher]"(&(ObjectClass=group)(sAMAccountName=$groupname))").FindOne()
+    $groupInfo = $group.Properties
+
+    $groupInfo | Out-File -FilePath "$groupname-info.txt" -Append
+}
+
 if (-not $Option) {
     ShowMenu
 } else {
@@ -72,22 +96,34 @@ if (-not $Option) {
             break
         }
         2 {
+            $username = Read-Host "Enter the username for specific user enumeration"
+            EnumerateSpecificUser -username $username
+            Write-Host "Specific user enumeration complete. Output saved to $username-info.txt" -ForegroundColor Green
+            break
+        }
+        3 {
             EnumerateGroups
             Write-Host "Group enumeration complete. Output saved to domain-groups.txt" -ForegroundColor Green
             break
         }
-        3 {
+        4 {
+            $groupname = Read-Host "Enter the group name for specific group enumeration"
+            EnumerateSpecificGroup -groupname $groupname
+            Write-Host "Specific group enumeration complete. Output saved to $groupname-info.txt" -ForegroundColor Green
+            break
+        }
+        5 {
             EnumerateComputers
             Write-Host "Computer enumeration complete. Output saved to domain-computers.txt" -ForegroundColor Green
             break
         }
-        4 {
+        6 {
             EnumerateSPNUsers
             Write-Host "User SPN enumeration complete. Output saved to user-spn-list.txt" -ForegroundColor Green
             break
         }
         default {
-            Write-Host "Invalid option. Please provide a valid option (1, 2, 3, or 4)." -ForegroundColor Red
+            Write-Host "Invalid option. Please provide a valid option (1, 2, 3, 4, 5, or 6)." -ForegroundColor Red
             ShowMenu
         }
     }
