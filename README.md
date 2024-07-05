@@ -56,7 +56,7 @@ If you encounter issues running the script directly on your domain, you can use 
 I am committed to continuously enhancing these commands and the script by incorporating intriguing inbuilt Active Directory (AD) commands. The goal is to provide robust functionality without the need for importing the AD module or Powerview.
 
 ### Website
-BreachForce.net
+offensivebytes.com
    
 
 
